@@ -7,15 +7,18 @@ import java.util.regex.Pattern;
 public class login extends JFrame{
     private JTextField username_input;
     private JPasswordField password_field;
-    private JLabel password;
     private JLabel username;
     private JButton login_button;
     private JPanel panel;
     private JLabel message;
     private JTextField email_field;
-    private JLabel email;
     private JCheckBox terms_check;
     private JLabel warning;
+    private JLabel email;
+    private JLabel password;
+    boolean isPassedUser;
+    boolean isPassedEmail;
+    boolean isPassedPass;
 
     public login() {
         setSize(500,500);
@@ -44,13 +47,17 @@ public class login extends JFrame{
                     warning.setText("username cannot be less than 5 characters");
                     username_input.requestFocus();
                 }
+                else{
+                    isPassedUser =true;
+                }
                 }
             }
         });
         terms_check.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                login_button.setEnabled(terms_check.isSelected());
+
+                login_button.setEnabled(isPassedUser && isPassedEmail && isPassedPass && terms_check.isSelected());
             }
         });
         password_field.addFocusListener(new FocusAdapter() {
@@ -83,7 +90,10 @@ public class login extends JFrame{
                         warning.setText("password should include at least one number.");
                         password_field.requestFocus();
                     }
-                    else{warning.setText("");}
+                    else{isPassedPass=true;
+                        warning.setText("");
+                    }
+
                 }
 
             }
@@ -99,7 +109,9 @@ public class login extends JFrame{
                     if (!matcher.matches()) {
                         warning.setForeground(Color.red);
                         warning.setText("the email should be valid and include @");
-                        email_field.requestFocus();
+                        email_field.requestFocus();}
+                    else {
+                        isPassedEmail = true;
                     }
                 }
             }
