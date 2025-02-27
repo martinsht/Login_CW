@@ -16,6 +16,7 @@ public class regi extends JFrame{
     private JButton registerButton;
     private JPanel panel;
     private JLabel imageLabel;
+    private JButton logInButton;
 
     public regi() {
         setSize(500, 500);
@@ -102,6 +103,12 @@ public class regi extends JFrame{
                     // Show a message prompting the user to fill in all the fields
                     JOptionPane.showMessageDialog(null, "Fill all the fields!");
                 }
+            }
+        });
+        logInButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new improv_login();
             }
         });
     }
